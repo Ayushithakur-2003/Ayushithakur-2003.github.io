@@ -1,9 +1,18 @@
 import React, { Component } from "react";
-import { Navbar, NavDropdown } from "react-bootstrap";
+import { Navbar, NavDropdown} from "react-bootstrap";
 import Nav from "react-bootstrap/Nav";
 import { Link } from "react-router-dom";
+import { BellIcon } from "@heroicons/react/24/solid";
 
 export default class NavBar extends Component {
+  constructor(props) {
+    super(props);
+  this.iconStyles = {
+    color: "white",
+    marginRight: "1rem",
+  };
+}
+
   render() {
     return (
       <>
@@ -20,7 +29,9 @@ export default class NavBar extends Component {
           <Link to={""} style={{fontSize:"1.2rem"}} className="navbar-brand">
               Welcome
             </Link>
-
+            <Link to={"explore"} style={{fontSize:"1.2rem"}} className="navbar-brand">
+              Explore
+            </Link>
           <Nav className="me-auto" style={{fontSize:"1.2rem"}} >
             <NavDropdown title="Post" id="navbarScrollingDropdown">
               <NavDropdown.Item>
@@ -42,8 +53,11 @@ export default class NavBar extends Component {
             {/* <Link to="#" className="nav-link">
               Feedback
             </Link> */}
-            
           </Nav>
+          <Link to={"feedback"} style={{fontSize:"1.2rem"}} className="navbar-brand">
+             Feedback
+            </Link>
+          <BellIcon style={{...this.iconStyles}} width={20} height={20} ></BellIcon>
         </Navbar>
       </>
     );

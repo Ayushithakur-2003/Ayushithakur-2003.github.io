@@ -35,7 +35,7 @@ export default class DeletePost extends Component {
     e.preventDefault();
 
     const del = {
-      ID: this.state.id,
+      id : this.state.id,
     };
     axios
       .delete(
@@ -44,7 +44,8 @@ export default class DeletePost extends Component {
         del
       )
       .then((response) => {
-        if (response.data != null) {
+        if (response.statusCode === 200) {
+          console.log(response.status);
           this.setState(this.initialState);
           alert("Post deleted successfully");
         } else {

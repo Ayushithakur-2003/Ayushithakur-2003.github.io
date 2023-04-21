@@ -1,13 +1,20 @@
-import React, { Component } from "react";
+import React, { Component} from "react";
 import { Card } from "react-bootstrap";
 import axios from "axios";
 import { ShareIcon } from "@heroicons/react/24/solid";
 import { RWebShare } from "react-web-share";
 import Button from "react-bootstrap/Button";
+// import { Form } from "react-bootstrap";
+import Offcanvas from 'react-bootstrap/Offcanvas';
+// import TextField from "@mui/material/TextField";
+
 
 export default class Explore extends Component {
   constructor(props) {
     super(props);
+
+    this.state = { show: false };
+
     this.styles = {
       display: "flex",
       float: "left",
@@ -35,6 +42,9 @@ export default class Explore extends Component {
     };
   }
 
+  handleClose = () => this.setState({show: false}); 
+    handleShow = () =>this.setState({show: true});
+
   componentDidMount() {
     axios
       .get("https://zygn0zvv79.execute-api.us-east-2.amazonaws.com/scan/")
@@ -46,6 +56,12 @@ export default class Explore extends Component {
       
     
   }
+
+  
+
+
+
+
    idx = (e) => {
        var ind = document.getElementById('btn');
       for (let i = 0; i < ind.length; i++) {
@@ -56,7 +72,34 @@ export default class Explore extends Component {
      }
     };
 
+
   render() {
+
+    <><Button onClick={this.handleShow} style={{float:"left"}} variant="primary">
+    Launch
+  </Button><Offcanvas show={this.state.show} onHide={this.handleClose}>
+      <Offcanvas.Header closeButton>
+        <Offcanvas.Title>Offcanvas</Offcanvas.Title>
+      </Offcanvas.Header>
+      <Offcanvas.Body>
+        Some text as placeholder. In real life you can have the elements you
+        have chosen. Like, text, images, lists, etc.
+      </Offcanvas.Body>
+    </Offcanvas></>
+
+    // <div className="main">
+    // <div className="search">
+    //   <TextField
+    //     id="outlined-basic"
+    //     variant="outlined"
+    //     fullWidth
+    //     label="Search"
+    //   />
+    // </div>
+    // </div>
+  
+
+
   //   let ind = document.getElementsByTagName('button');
   //   var Name = null;
 
@@ -74,24 +117,34 @@ export default class Explore extends Component {
   //   }.bind(null, i));
    
   //  }
-  var dummy;
-  let ind = document.getElementsByTagName('button');
+  // var dummy;
+  // let ind = document.getElementsByTagName('button');
 
-    for (let i = 0; i < ind.length; i++) {
-        ind[i].addEventListener('click', function(i) {
-    dummy = axios.get('https://zygn0zvv79.execute-api.us-east-2.amazonaws.com/scan/').then((response) => response.json())
-    .then((user) => {
-      return user.title;
-    })
-    });
-  }
+  //   for (let i = 0; i < ind.length; i++) {
+  //       ind[i].addEventListener('click', function(i) {
+  //   dummy = axios.get('https://zygn0zvv79.execute-api.us-east-2.amazonaws.com/scan/').then((response) => response.json())
+  //   .then((user) => {
+  //     return user.data.title;
+  //   })
+  //   });
+  // }
   
 
-console.log(dummy);
+// console.log(dummy);
+{/* <Form  className="d-flex">
+<Form.Control
+  type="search"
+  placeholder="Search"
+  className="me-2"
+  aria-label="Search"
+/>
+<Button variant="outline-success">Search</Button>
+</Form> */}
 
 
     const url = window.location.href;
     return this.state.posts.map((post) => (
+      
       <Card
         style={{ ...this.styles }}
         className={"boder border-dark bg-dark"}
@@ -100,7 +153,7 @@ console.log(dummy);
        
          <RWebShare
           data={{
-            text: "msg : " + dummy,
+            text: "msg : " ,
             url: url,
           }}
           onClick={() => console.log("shared successfully!")}
@@ -113,6 +166,9 @@ console.log(dummy);
         <Card.Header style={{ textAlign: "center" }} className="text-white">
           {post.name}
         </Card.Header>
+        {/* <img src={localStorage.getItem('image')} 
+      alt={'C - language'}
+      /> */}
         <Card.Body>
           <Card.Title style={{ textAlign: "center" }} className="text-white">
             {post.title}

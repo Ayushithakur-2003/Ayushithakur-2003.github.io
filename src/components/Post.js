@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component} from "react";
 import { Card } from "react-bootstrap";
 import { Form, Button } from "react-bootstrap";
 import Col from "react-bootstrap/Col";
@@ -68,6 +68,10 @@ export default class Post extends Component {
       Name: this.state.name,
       Message: this.state.message,
     };
+
+    // const image = this.getImage.value;
+    // localStorage.setItem('image', image);
+    // this.getImage.src = '';
 
     let myuuid = uuidv4();
     const uniqueId = myuuid.toString();
@@ -175,11 +179,17 @@ export default class Post extends Component {
                 onChange={this.changePost}
               />
 
-           <button style={{...this.buttonStyle}} > <img id="sad" style={{borderRadius: "50%"}} src = "https://c4.wallpaperflare.com/wallpaper/284/97/129/sad-blue-gradation-blur-wallpaper-preview.jpg" width={"30px"} height={"30px"} alt="xxx" /> </button>  
-           <button style={{...this.buttonStyle}} > <img id="happy" style={{borderRadius: "50%"}} src = "https://img.freepik.com/premium-vector/yellow-background-with-design-free-vector_612827-16.jpg" width={"30px"} height={"30px"} alt = "xxx" /> </button>  
-           <button style={{...this.buttonStyle}} >  <img id="romantic" style={{borderRadius: "50%"}} src = "https://upload.wikimedia.org/wikipedia/commons/f/f5/Rose-pink.jpg" width = {"30px"} height = {"30px"} /> </button>  
-           <button style={{...this.buttonStyle}} > <img id="calm" style={{borderRadius: "50%"}} src = "https://htmlcolorcodes.com/assets/images/colors/dark-blue-color-solid-background-1920x1080.png" width = {"30px"} height = {"30px"} /> </button>  
-           <button style={{...this.buttonStyle}} >  <img id="exciting" style={{borderRadius: "50%"}} src = "https://wallpaperaccess.com/full/1152525.jpg" width = {"30px"} height = {"30px"} /> </button>  
+             {/* <input required type="text" 
+                 placeholder="Paste your image url here"
+                  ref={(input) => this.getImage = input}
+                /> */}
+
+           {/* <button onClick={this.color} style={{...this.buttonStyle}} > <img id="mood" style={{borderRadius: "50%"}} src = "https://c4.wallpaperflare.com/wallpaper/284/97/129/sad-blue-gradation-blur-wallpaper-preview.jpg"  width={"30px"} height={"30px"} ref={this.getImage} alt="xxx" /> </button>  
+           <button style={{...this.buttonStyle}} > <img id="mood" style={{borderRadius: "50%"}} src = "https://img.freepik.com/premium-vector/yellow-background-with-design-free-vector_612827-16.jpg" width={"30px"} height={"30px"} alt = "xxx" /> </button>  
+           <button style={{...this.buttonStyle}} >  <img id="mood" style={{borderRadius: "50%"}} src = "https://upload.wikimedia.org/wikipedia/commons/f/f5/Rose-pink.jpg" width = {"30px"} height = {"30px"} /> </button>  
+           <button style={{...this.buttonStyle}} > <img id="mood" style={{borderRadius: "50%"}} src = "https://htmlcolorcodes.com/assets/images/colors/dark-blue-color-solid-background-1920x1080.png" width = {"30px"} height = {"30px"} /> </button>  
+           <button style={{...this.buttonStyle}} >  <img id="mood" style={{borderRadius: "50%"}} src = "https://wallpaperaccess.com/full/1152525.jpg" width = {"30px"} height = {"30px"} /> </button>   */}
+
             </Form.Group>
           </Card.Body>
           <Card.Footer>
@@ -189,7 +199,6 @@ export default class Post extends Component {
             <Button style={{ float: "right" }} variant="primary" type="reset">
               Reset
             </Button>
-            
           </Card.Footer>
         </Form>
       </Card>
