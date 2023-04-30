@@ -9,7 +9,7 @@ import Post from "./components/Post";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Welcome from "./components/Welcome";
 import { Container, Row, Col } from "react-bootstrap";
-import Feedback from "./components/Feedback";
+import Chat from "./components/Chat";
 
 function App() {
   return (
@@ -23,7 +23,7 @@ function App() {
               <Route path="/explore" exact Component={Explore} />
               <Route path="/post" exact Component={Post} />
               <Route path="/delete" exact Component={DeletePost} />
-              <Route path="/feedback" exact Component={Feedback} />
+              <Route path="/chat" exact Component={Chat} />
             </Routes>
           </Col>
         </Row>

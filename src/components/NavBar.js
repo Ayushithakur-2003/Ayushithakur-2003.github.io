@@ -54,8 +54,8 @@ export default class NavBar extends Component {
               Feedback
             </Link> */}
           </Nav>
-          <Link to={"feedback"} style={{fontSize:"1.2rem"}} className="navbar-brand">
-             Feedback
+          <Link to={"chat"} style={{fontSize:"1.2rem"}} className="navbar-brand">
+             Chat
             </Link>
           <BellIcon style={{...this.iconStyles}} width={20} height={20} ></BellIcon>
         </Navbar>
