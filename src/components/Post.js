@@ -8,8 +8,6 @@ import { v4 as uuidv4 } from "uuid";
 import swal from "@sweetalert/with-react";
 
 export default class Post extends Component {
- 
-
   constructor(props) {
     super(props);
     this.state = { name: "", title: "", message: "" };
@@ -21,6 +19,7 @@ export default class Post extends Component {
       marginLeft: "15rem",
       marginRight: "20rem",
       marginTop: "8rem",
+      marginBottom: "15rem",
       // alignItems: "center",
       // height: "100vh",
       width: "50rem",
@@ -75,7 +74,8 @@ export default class Post extends Component {
 
     let myuuid = uuidv4();
     const uniqueId = myuuid.toString();
-    const myFile = new File([`Your Post ID for ${this.state.message} is : ${uniqueId}`], 'PID.txt');
+    const myFile = new File([`Your Post ID for ${this.state.message} is : ${uniqueId}`], this.state.title + '.txt');
+ 
     axios
       .put(
         "https://chidvg8h2m.execute-api.us-east-2.amazonaws.com/update/update?id=" +
@@ -90,7 +90,7 @@ export default class Post extends Component {
       )
       .then((response) => {
         if (response.data != null) {
-          this.setState(this.initialState);
+          this.setState(this.reset);
           swal(
             <div>
               <h1>Hello!</h1><p>Congrats! Your Post have been added.</p>
@@ -101,16 +101,30 @@ export default class Post extends Component {
          
           // alert("Please copy your post ID here..." + uniqueId);
         }
+
+        axios.get(
+          "https://8e4k7r32gl.execute-api.us-east-2.amazonaws.com/analysis/?id=" + uniqueId
+        ).then((response) => {
+          console.log(response);
+        });
       });
+
   };
 
-  
 
   changePost = (e) => {
     this.setState({
       [e.target.name]: e.target.value,
     });
   };
+
+  reset = () => {
+    this.setState ({
+        name : "",
+        title : "",
+        message : ""
+    })
+}
 
   render() {
     return (
@@ -196,7 +210,7 @@ export default class Post extends Component {
             <Button variant="primary" type="submit">
               Submit
             </Button>
-            <Button style={{ float: "right" }} variant="primary" type="reset">
+            <Button onClick={this.reset} style={{ float: "right" }} variant="primary" type="reset">
               Reset
             </Button>
           </Card.Footer>

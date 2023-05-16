@@ -6,6 +6,7 @@ import { RWebShare } from "react-web-share";
 import Button from "react-bootstrap/Button";
 // import { Form } from "react-bootstrap";
 import Offcanvas from 'react-bootstrap/Offcanvas';
+import $, { post } from 'jquery';
 // import TextField from "@mui/material/TextField";
 
 
@@ -57,21 +58,16 @@ export default class Explore extends Component {
     
   }
 
-  
+    
+  idx = (e) => {
+    var ind = document.getElementById('btn');
+   for (let i = 0; i < ind.length; i++) {
+     ind[i].addEventListener('click', function(i) {
+       console.log('You clicked element #' + i);
+   }.bind(null, i));
 
-
-
-
-   idx = (e) => {
-       var ind = document.getElementById('btn');
-      for (let i = 0; i < ind.length; i++) {
-        ind[i].addEventListener('click', function(i) {
-          console.log('You clicked element #' + i);
-      }.bind(null, i));
-
-     }
-    };
-
+  }
+ };
 
   render() {
 
@@ -87,65 +83,44 @@ export default class Explore extends Component {
       </Offcanvas.Body>
     </Offcanvas></>
 
-    // <div className="main">
-    // <div className="search">
-    //   <TextField
-    //     id="outlined-basic"
-    //     variant="outlined"
-    //     fullWidth
-    //     label="Search"
-    //   />
-    // </div>
-    // </div>
+
+let ind = document.getElementsByTagName('button')
+$('button').on("click", function() {
+  console.log($('button').index(this.closest("button")));
+  axios
+       .get("https://zygn0zvv79.execute-api.us-east-2.amazonaws.com/scan/")
+        .then((response) => {
+        let id = response.data[$('button').index(this.closest("button"))].id;
+        let message = response.data[$('button').index(this.closest("button"))].message;
+        let name = response.data[$('button').index(this.closest("button"))].name;
+        let title = response.data[$('button').index(this.closest("button"))].title;
+        let like_count = response.data[$('button').index(this.closest("button"))].like_count + 1;
+        
+
+  axios.put(
+    "https://chidvg8h2m.execute-api.us-east-2.amazonaws.com/update/update?id=" +
+    id +
+    "&like_count=" + 
+    like_count +
+    "&name=" +
+    name +
+    "&title=" +
+    title +
+    "&message=" +
+    message, 
   
+  )
+ 
+});
+});
 
 
-  //   let ind = document.getElementsByTagName('button');
-  //   var Name = null;
 
-  //   for (let i = 0; i < ind.length; i++) {
-  //     ind[i].addEventListener('click', function(i) {
-  //       console.log('You clicked element #' + i);
-  //       axios
-  //     .get("https://zygn0zvv79.execute-api.us-east-2.amazonaws.com/scan/")
-  //      .then((response) => {
-  //      Name = null + response.data[i].name;
-  //      let message = response.data[i].message;
-  //      console.log(message);
-  //      console.log(Name);
-  //     })
-  //   }.bind(null, i));
-   
-  //  }
-  // var dummy;
-  // let ind = document.getElementsByTagName('button');
-
-  //   for (let i = 0; i < ind.length; i++) {
-  //       ind[i].addEventListener('click', function(i) {
-  //   dummy = axios.get('https://zygn0zvv79.execute-api.us-east-2.amazonaws.com/scan/').then((response) => response.json())
-  //   .then((user) => {
-  //     return user.data.title;
-  //   })
-  //   });
-  // }
-  
-
-// console.log(dummy);
-{/* <Form  className="d-flex">
-<Form.Control
-  type="search"
-  placeholder="Search"
-  className="me-2"
-  aria-label="Search"
-/>
-<Button variant="outline-success">Search</Button>
-</Form> */}
-
-
+    
     const url = window.location.href;
     return this.state.posts.map((post) => (
       
-      <Card
+      <Card id="card"
         style={{ ...this.styles }}
         className={"boder border-dark bg-dark"}
       >
@@ -181,6 +156,7 @@ export default class Explore extends Component {
           {post.like_count} share
         </Card.Footer>
       </Card>
+    
     ));
   }
 }

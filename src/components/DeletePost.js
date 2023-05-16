@@ -18,6 +18,7 @@ export default class DeletePost extends Component {
       marginLeft: "20rem",
       marginRight: "20rem",
       marginTop: "8rem",
+      marginBottom: "20rem",
       // alignItems: "center",
       // height: "100vh",
       width: "40rem",
