@@ -4,13 +4,16 @@ import axios from "axios";
 import { ShareIcon } from "@heroicons/react/24/solid";
 import { RWebShare } from "react-web-share";
 import Button from "react-bootstrap/Button";
+import Skeleton, {SkeletonTheme} from "react-loading-skeleton";
 // import { Form } from "react-bootstrap";
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import $, { post } from 'jquery';
+import { useState, useEffect } from "react";
 // import TextField from "@mui/material/TextField";
 
 
 export default class Explore extends Component {
+  // const [list, setList] = useState([])
   constructor(props) {
     super(props);
 
@@ -57,6 +60,12 @@ export default class Explore extends Component {
       
     
   }
+
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     fetchData()
+  //   }, 5000)
+  // }, []);
 
     
   idx = (e) => {
@@ -128,7 +137,7 @@ $('button').on("click", function() {
        
          <RWebShare
           data={{
-            text: "msg : " ,
+            text: "Check this out!",
             url: url,
           }}
           onClick={() => console.log("shared successfully!")}
