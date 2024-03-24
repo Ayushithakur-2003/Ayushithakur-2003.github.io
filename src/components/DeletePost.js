@@ -40,7 +40,7 @@ export default class DeletePost extends Component {
     };
     axios
       .delete(
-        "https://kcp5d8mmm1.execute-api.us-east-2.amazonaws.com/delete/deleteitem?id=" +
+        "https://ybwzv08m2d.execute-api.us-east-2.amazonaws.com/del?id=" +
           this.state.id,
         del
       )

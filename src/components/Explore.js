@@ -97,7 +97,7 @@ let ind = document.getElementsByTagName('button')
 $('button').on("click", function() {
   console.log($('button').index(this.closest("button")));
   axios
-       .get("https://zygn0zvv79.execute-api.us-east-2.amazonaws.com/scan/")
+       .get("https://acgld0qc6i.execute-api.us-east-2.amazonaws.com/dev/")
         .then((response) => {
         let id = response.data[$('button').index(this.closest("button"))].id;
         let message = response.data[$('button').index(this.closest("button"))].message;

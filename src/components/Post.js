@@ -78,7 +78,7 @@ export default class Post extends Component {
  
     axios
       .put(
-        "https://chidvg8h2m.execute-api.us-east-2.amazonaws.com/update/update?id=" +
+        "https://5xoqmkaqw6.execute-api.us-east-2.amazonaws.com/dev/update?id=" +
           uniqueId +
           "&like_count=0&name=" +
           this.state.name +
