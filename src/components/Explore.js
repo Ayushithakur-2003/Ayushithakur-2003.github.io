@@ -51,7 +51,7 @@ export default class Explore extends Component {
 
   componentDidMount() {
     axios
-      .get("https://zygn0zvv79.execute-api.us-east-2.amazonaws.com/scan/")
+      .get("https://acgld0qc6i.execute-api.us-east-2.amazonaws.com/dev/")
       .then((response) => response.data)
       .then((data) => {
         this.setState({ posts: data });
@@ -107,7 +107,7 @@ $('button').on("click", function() {
         
 
   axios.put(
-    "https://chidvg8h2m.execute-api.us-east-2.amazonaws.com/update/update?id=" +
+    "https://5xoqmkaqw6.execute-api.us-east-2.amazonaws.com/dev/update?id=" +
     id +
     "&like_count=" + 
     like_count +
