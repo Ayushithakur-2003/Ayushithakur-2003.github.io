@@ -5,7 +5,7 @@ export default class Footer extends Component{
     render() {
         let fullYear = new Date().getFullYear();
         return (
-            <Navbar fixed="left" bg="dark" variant="dark">
+            <Navbar fixed="left" bg="none" variant="dark" style={{marginTop:"80px"}}>
               <Container >
                 <Col lg={12} className="text-center text-muted">
                     <div>{fullYear}-{fullYear + 1}, All rights reserved by Ayushi Thakur</div>

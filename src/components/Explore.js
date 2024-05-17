@@ -47,7 +47,7 @@ export default class Explore extends Component {
   }
 
   handleClose = () => this.setState({show: false}); 
-    handleShow = () => this.setState({show: true});
+  handleShow = () => this.setState({show: true});
 
   componentDidMount() {
     axios
@@ -78,7 +78,16 @@ export default class Explore extends Component {
   }
  };
 
+
   render() {
+    const transformDynamoDBItem = (item) => {
+      const transformedItem = {};
+      for (let key in item) {
+        const valueType = Object.keys(item[key])[0]; // This gets the type descriptor (S, N, etc.)
+        transformedItem[key] = item[key][valueType]; // Assigns the actual value to the key
+      }
+      return transformedItem;
+    };
 
     <><Button onClick={this.handleShow} style={{float:"left"}} variant="primary">
     Launch
@@ -92,42 +101,66 @@ export default class Explore extends Component {
       </Offcanvas.Body>
     </Offcanvas></>
 
+// const updateLikeCount = (postId) => {
+//   // Find the post in your state
+//   console.log(postId);
+//   const postIndex = this.state.posts.findIndex(posts => posts.id === postId);
+//   console.log(postIndex);
+//   if (postIndex >= -1) {
+//     const newPosts = [...this.state.posts];
+//     const post = {...newPosts[postIndex]};
+//     console.log(newPosts);
+//     console.log(post)
+//     console.log(post.like_count);
+//     post.like_count += 1; // Assuming you want to increment the count
+//     newPosts[postIndex] = post;
 
-let ind = document.getElementsByTagName('button')
-$('button').on("click", function() {
-  console.log($('button').index(this.closest("button")));
-  axios
-       .get("https://acgld0qc6i.execute-api.us-east-2.amazonaws.com/dev/")
-        .then((response) => {
-        let id = response.data[$('button').index(this.closest("button"))].id;
-        let message = response.data[$('button').index(this.closest("button"))].message;
-        let name = response.data[$('button').index(this.closest("button"))].name;
-        let title = response.data[$('button').index(this.closest("button"))].title;
-        let like_count = response.data[$('button').index(this.closest("button"))].like_count + 1;
-        
 
-  axios.put(
-    "https://5xoqmkaqw6.execute-api.us-east-2.amazonaws.com/dev/update?id=" +
-    id +
-    "&like_count=" + 
-    like_count +
-    "&name=" +
-    name +
-    "&title=" +
-    title +
-    "&message=" +
-    message, 
-  
-  )
- 
-});
-});
+//     // Update the state
+//     this.setState({posts: newPosts}, () => {
+//       // Make PUT request to update like_count in the database
+//       axios.put(
+//         `https://5xoqmkaqw6.execute-api.us-east-2.amazonaws.com/dev/update?id=${postId}`,
+//         { like_count: post.like_count }
+//       )
+//       .then(response => {
+//         // Handle successful response if needed
+//         console.log('Like count updated successfully:', response.data);
+//       })
+//       .catch(error => {
+//         // Handle error if PUT request fails
+//         console.error('Error updating like count:', error);
+//       });
+//     });
+//   }
+// };
+
+const updateLikeCount = async (postId, likes, name, title, message, Tag) => {
+  try {
+    let inc = Number(likes) + 1
+    console.log(postId)
+    console.log(inc)
+    // Send a PUT request to your server's API endpoint
+    const response = await axios.put("https://5xoqmkaqw6.execute-api.us-east-2.amazonaws.com/dev/update?id=" + postId + "&like_count=" + inc + "&name=" + name + "&message=" + message + "&title=" + title + "&Tag=" + Tag);
+    
+    // Check if the request was successful
+    if (response.status === 200) {
+      console.log('Share count updated successfully!');
+    } else {
+      console.error('Failed to update share count.');
+    }
+  } catch (error) {
+    console.error('An error occurred while updating share count:', error);
+  }
+};
+
 
 
 
     
     const url = window.location.href;
-    return this.state.posts.map((post) => (
+    const transformedPosts = this.state.posts.map(transformDynamoDBItem);
+    return transformedPosts.map((post) => (
       
       <Card id="card"
         style={{ ...this.styles }}
@@ -140,9 +173,9 @@ $('button').on("click", function() {
             text: "Check this out!",
             url: url,
           }}
-          onClick={() => console.log("shared successfully!")}
+          onClick={() => updateLikeCount(post.id, post.like_count, post.message, post.title, post.name, post.Tag)}
         >
-          <button id="btn"  style={{ ...this.buttonStyle }}>
+          <button onClick={() => updateLikeCount(post.id, post.like_count)} style={{ ...this.buttonStyle }}>
             <ShareIcon style={{ ...this.iconStyles }} width={20} height={20} />
           </button>
         </RWebShare> 
