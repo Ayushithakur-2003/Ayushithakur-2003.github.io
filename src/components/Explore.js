@@ -61,11 +61,6 @@ export default class Explore extends Component {
     
   }
 
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     fetchData()
-  //   }, 5000)
-  // }, []);
 
     
   idx = (e) => {
