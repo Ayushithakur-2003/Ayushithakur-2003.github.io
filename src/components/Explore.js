@@ -56,8 +56,6 @@ export default class Explore extends Component {
       .then((data) => {
         this.setState({ posts: data });
       });
-
-      
     
   }
 
